@@ -13,18 +13,31 @@
        VARIABLES Y RESET
     ============================================================ */
     :root {
-      --black:      #0a0a0a;
-      --dark:       #111111;
-      --dark2:      #1a1a1a;
-      --dark3:      #242424;
-      --grey:       #2e2e2e;
-      --muted:      #888;
-      --light:      #e8e8e8;
-      --white:      #f5f5f5;
-      --red:        #e31c1c;
-      --red-dark:   #b81414;
-      --red-glow:   rgba(227, 28, 28, 0.25);
-      --orange:     #ff5c00;
+      --black:      #080810;
+      --dark:       #0e0e18;
+      --dark2:      #13131f;
+      --dark3:      #1a1a28;
+      --grey:       #2a2a3a;
+      --muted:      #7a7a9a;
+      --light:      #e4e4f0;
+      --white:      #f2f2ff;
+
+      /* Colores extraídos del degradado del logo */
+      --cyan:       #00c8ff;
+      --blue:       #0070ff;
+      --magenta:    #e800c8;
+      --orange:     #ff6a00;
+      --yellow:     #f5d800;
+
+      /* Color primario de acento (cian eléctrico) */
+      --accent:       #00c8ff;
+      --accent-dark:  #009acc;
+      --accent-glow:  rgba(0, 200, 255, 0.22);
+
+      /* Degradado del anillo del logo — usado en CTAs y highlights */
+      --grad-logo: linear-gradient(135deg, #0070ff 0%, #00c8ff 22%, #00e5a0 40%, #f5d800 58%, #ff6a00 74%, #e800c8 90%, #7000ff 100%);
+      --grad-logo-text: linear-gradient(90deg, #00c8ff 0%, #00e5a0 35%, #f5d800 65%, #ff6a00 85%, #e800c8 100%);
+
       --font-display: 'Barlow Condensed', sans-serif;
       --font-body:    'Barlow', sans-serif;
     }
@@ -58,8 +71,8 @@
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--red);
-      border: 1px solid var(--red);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 200, 255, 0.4);
       padding: 4px 12px;
       border-radius: 2px;
       margin-bottom: 18px;
@@ -75,11 +88,11 @@
       color: var(--white);
     }
 
-    .section-title span { color: var(--red); }
+    .section-title span { color: var(--cyan); }
 
     .divider {
       width: 56px; height: 3px;
-      background: var(--red);
+      background: var(--grad-logo);
       margin-block: 20px;
     }
 
@@ -102,8 +115,23 @@
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--white);
+      display: flex; align-items: center; gap: 10px;
     }
-    .nav-logo span { color: var(--red); }
+    .nav-logo span { color: var(--cyan); }
+
+    /* Logo ring wrapper in nav */
+    .nav-logo-ring {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--grad-logo);
+      padding: 2.5px;
+      flex-shrink: 0;
+    }
+    .nav-logo-ring-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
 
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
@@ -118,8 +146,8 @@
     .nav-links a:hover { color: var(--white); }
 
     .nav-cta {
-      background: var(--red);
-      color: var(--white) !important;
+      background: var(--accent);
+      color: var(--black) !important;
       padding: 9px 22px;
       border-radius: 3px;
       font-family: var(--font-display) !important;
@@ -128,7 +156,7 @@
       letter-spacing: 0.1em !important;
       transition: background 0.2s, transform 0.15s !important;
     }
-    .nav-cta:hover { background: var(--red-dark) !important; transform: translateY(-1px); }
+    .nav-cta:hover { background: var(--accent-dark) !important; transform: translateY(-1px); }
 
     .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .burger span { display: block; width: 24px; height: 2px; background: var(--white); transition: 0.3s; }
@@ -157,16 +185,16 @@
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1;
       background:
-        linear-gradient(105deg, rgba(10,10,10,0.97) 0%, rgba(10,10,10,0.75) 55%, rgba(10,10,10,0.2) 100%),
-        radial-gradient(ellipse at 80% 50%, rgba(227,28,28,0.12) 0%, transparent 60%);
+        linear-gradient(105deg, rgba(8,8,16,0.97) 0%, rgba(8,8,16,0.75) 55%, rgba(8,8,16,0.2) 100%),
+        radial-gradient(ellipse at 80% 50%, rgba(0,112,255,0.12) 0%, transparent 55%);
     }
 
     /* Animated background grid lines */
     .hero-grid {
       position: absolute; inset: 0; z-index: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(0,200,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,255,0.04) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
@@ -180,8 +208,9 @@
     .hero-bg-visual {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse at 75% 40%, rgba(227,28,28,0.08), transparent 55%),
-        linear-gradient(160deg, #0a0a0a 30%, #1a0f0f 70%, #0a0a0a 100%);
+        radial-gradient(ellipse at 75% 40%, rgba(0,112,255,0.1), transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(232,0,200,0.07), transparent 45%),
+        linear-gradient(160deg, #080810 30%, #0e0e25 70%, #080810 100%);
     }
 
     .hero-inner {
@@ -196,7 +225,7 @@
       font-weight: 700;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--red);
+      color: var(--cyan);
       margin-bottom: 20px;
       display: flex; align-items: center; gap: 12px;
       animation: fadeUp 0.6s ease both;
@@ -205,7 +234,7 @@
       content: '';
       display: block;
       width: 32px; height: 2px;
-      background: var(--red);
+      background: var(--grad-logo);
     }
 
     .hero-title {
@@ -220,9 +249,15 @@
       animation: fadeUp 0.7s 0.1s ease both;
     }
 
-    .hero-title .accent  { color: var(--red); display: block; }
+    .hero-title .accent  {
+      background: var(--grad-logo-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
     .hero-title .stroke  {
-      -webkit-text-stroke: 2px var(--white);
+      -webkit-text-stroke: 2px rgba(255,255,255,0.35);
       color: transparent;
     }
 
@@ -256,13 +291,14 @@
     }
 
     .btn-primary {
-      background: var(--red);
-      color: var(--white);
+      background: var(--grad-logo);
+      color: var(--black);
+      font-weight: 800;
     }
     .btn-primary:hover {
-      background: var(--red-dark);
+      opacity: 0.88;
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px var(--red-glow);
+      box-shadow: 0 8px 32px rgba(0,200,255,0.3);
     }
 
     .btn-ghost {
@@ -278,16 +314,16 @@
     /* Stars badge */
     .hero-badge {
       display: inline-flex; align-items: center; gap: 10px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0,200,255,0.04);
+      border: 1px solid rgba(0,200,255,0.2);
       border-radius: 100px;
       padding: 8px 18px;
       margin-top: 48px;
       font-size: 0.88rem;
-      color: rgba(232,232,232,0.75);
+      color: rgba(228,228,240,0.75);
       animation: fadeUp 0.7s 0.4s ease both;
     }
-    .hero-badge .stars { color: #fbbf24; letter-spacing: 2px; }
+    .hero-badge .stars { color: var(--cyan); letter-spacing: 2px; }
     .hero-badge strong { color: var(--white); }
 
     /* Scroll indicator */
@@ -334,24 +370,24 @@
       content: '';
       position: absolute; top: 0; left: 0; right: 0;
       height: 3px;
-      background: var(--red);
+      background: var(--grad-logo);
       transform: scaleX(0);
       transform-origin: left;
       transition: transform 0.4s ease;
     }
     .pilar-card:hover::before { transform: scaleX(1); }
-    .pilar-card:hover { background: #1e1e1e; transform: translateY(-4px); }
+    .pilar-card:hover { background: #1c1c2c; transform: translateY(-4px); }
 
     .pilar-num {
       font-family: var(--font-display);
       font-size: 4.5rem;
       font-weight: 900;
       line-height: 1;
-      color: rgba(227,28,28,0.12);
+      color: rgba(0, 200, 255, 0.1);
       margin-bottom: 16px;
       transition: color 0.3s;
     }
-    .pilar-card:hover .pilar-num { color: rgba(227,28,28,0.22); }
+    .pilar-card:hover .pilar-num { color: rgba(0, 200, 255, 0.2); }
 
     .pilar-icon {
       font-size: 2.2rem;
@@ -462,7 +498,7 @@
     }
 
     .comp-col--bad  { background: rgba(255,255,255,0.02); }
-    .comp-col--good { background: rgba(227,28,28,0.06); border: 1px solid rgba(227,28,28,0.2); }
+    .comp-col--good { background: rgba(0,200,255,0.04); border: 1px solid rgba(0,200,255,0.2); }
 
     .comp-header {
       display: flex; align-items: center; gap: 14px;
@@ -480,7 +516,7 @@
     }
 
     .comp-col--bad  .comp-header-title { color: var(--muted); }
-    .comp-col--good .comp-header-title { color: var(--red); }
+    .comp-col--good .comp-header-title { color: var(--cyan); }
 
     .comp-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
 
@@ -515,7 +551,7 @@
       color: var(--white);
       line-height: 1;
     }
-    .stars-big .star-icons { color: #fbbf24; font-size: 1.8rem; letter-spacing: 4px; margin-block: 8px; }
+    .stars-big .star-icons { color: var(--cyan); font-size: 1.8rem; letter-spacing: 4px; margin-block: 8px; }
     .stars-big .reviews-count { color: var(--muted); font-size: 0.9rem; }
 
     .test-grid {
@@ -542,15 +578,15 @@
       font-family: Georgia, serif;
       font-size: 5rem;
       line-height: 1;
-      color: rgba(227,28,28,0.15);
+      color: rgba(0,200,255,0.12);
     }
 
-    .test-stars { color: #fbbf24; font-size: 0.9rem; letter-spacing: 3px; margin-bottom: 14px; }
+    .test-stars { color: var(--cyan); font-size: 0.9rem; letter-spacing: 3px; margin-bottom: 14px; }
 
     .test-text {
       font-size: 0.97rem;
       line-height: 1.75;
-      color: rgba(220,220,220,0.8);
+      color: rgba(220,220,235,0.8);
       font-style: italic;
       margin-bottom: 22px;
     }
@@ -604,7 +640,7 @@
       border-left: 3px solid transparent;
       transition: border-color 0.25s;
     }
-    .faq-item.open { border-left-color: var(--red); }
+    .faq-item.open { border-left-color: var(--cyan); }
 
     .faq-q {
       display: flex; align-items: center; justify-content: space-between;
@@ -626,10 +662,10 @@
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 1.1rem;
-      color: var(--red);
+      color: var(--cyan);
       transition: transform 0.3s, border-color 0.3s;
     }
-    .faq-item.open .faq-toggle { transform: rotate(45deg); border-color: var(--red); }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); border-color: var(--cyan); }
 
     .faq-a {
       max-height: 0;
@@ -663,7 +699,7 @@
       color: var(--white);
       margin-bottom: 12px;
     }
-    .footer-brand-name span { color: var(--red); }
+    .footer-brand-name span { color: var(--cyan); }
 
     .footer-tagline {
       font-size: 0.9rem;
@@ -683,7 +719,7 @@
       color: var(--muted);
       transition: border-color 0.2s, color 0.2s, background 0.2s;
     }
-    .social-btn:hover { border-color: var(--red); color: var(--red); background: rgba(227,28,28,0.08); }
+    .social-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,200,255,0.08); }
 
     .footer-col-title {
       font-family: var(--font-display);
@@ -698,11 +734,11 @@
     .footer-contact-item {
       display: flex; align-items: flex-start; gap: 12px;
       font-size: 0.9rem;
-      color: rgba(200,200,200,0.65);
+      color: rgba(200,200,220,0.65);
       line-height: 1.55;
       margin-bottom: 14px;
     }
-    .footer-contact-item .icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; color: var(--red); }
+    .footer-contact-item .icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; color: var(--cyan); }
 
     .footer-hours-row {
       display: flex; justify-content: space-between;
@@ -818,7 +854,10 @@
        NAV
   ============================================================ -->
   <nav id="navbar">
-    <div class="nav-logo">Volx<span>Box</span></div>
+    <div class="nav-logo">
+      <div class="nav-logo-ring"><div class="nav-logo-ring-inner">🏋️</div></div>
+      Volx<span>Box</span>
+    </div>
     <ul class="nav-links" id="navLinks">
       <li><a href="#pilares">Nosotros</a></li>
       <li><a href="#horarios">Horarios</a></li>
@@ -850,9 +889,9 @@
       <p class="hero-eyebrow">Maipú, Mendoza · Entrenamiento Funcional</p>
 
       <h1 class="hero-title">
-        <span class="stroke">Más que</span>
-        <span class="accent">un gimnasio.</span>
-        Tu zona de<br>superación.
+        <span class="stroke">Make your</span>
+        <span class="accent">Better Version.</span>
+        Entrená en<br>comunidad.
       </h1>
 
       <p class="hero-subtitle">
@@ -1049,7 +1088,7 @@
           <div class="test-stars">★★★★★</div>
           <p class="test-text">"El mejor ambiente que encontré en un gimnasio. Las clases son intensas pero los profes siempre están atentos a tu técnica. Nunca me aburrí ni por un segundo."</p>
           <div class="test-author">
-            <div class="test-avatar" style="background:#b81414;">ML</div>
+            <div class="test-avatar" style="background:linear-gradient(135deg,#0070ff,#00c8ff);">ML</div>
             <div>
               <div class="test-name">María L.</div>
               <div class="test-verified">Miembro · Reseña verificada en Google</div>
@@ -1061,7 +1100,7 @@
           <div class="test-stars">★★★★★</div>
           <p class="test-text">"Instalaciones modernas, estacionamiento seguro y un equipo de entrenadores re atentos. Vine por curiosidad y me quedé por la comunidad. Un nivel diferente."</p>
           <div class="test-author">
-            <div class="test-avatar" style="background:#333;">RP</div>
+            <div class="test-avatar" style="background:linear-gradient(135deg,#ff6a00,#e800c8);">RP</div>
             <div>
               <div class="test-name">Rodrigo P.</div>
               <div class="test-verified">Miembro · Reseña verificada en Google</div>
@@ -1073,7 +1112,7 @@
           <div class="test-stars">★★★★★</div>
           <p class="test-text">"Venía de varios años en gimnasios tradicionales y el cambio fue brutal. Acá te adaptás rápido, desde el primer día te sentís parte del grupo. Gente hermosa."</p>
           <div class="test-author">
-            <div class="test-avatar" style="background:#444;">CG</div>
+            <div class="test-avatar" style="background:linear-gradient(135deg,#00e5a0,#0070ff);">CG</div>
             <div>
               <div class="test-name">Carla G.</div>
               <div class="test-verified">Miembro · Reseña verificada en Google</div>
